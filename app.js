@@ -53,8 +53,7 @@ const io = new Server(server, {
       "http://localhost:5173",
       "http://localhost:4173",
       process.env.CLIENT_URL ||
-        "https://clientchatapp-9pls-e1cqwq7u1-amanrawat9711s-projects.vercel.app" ||
-        "https://clientchatapp-9pls.vercel.app",
+        "https://clientchatapp-gvkp.vercel.app",
     ],
     methods: ["GET", "POST"],
     credentials: true,
