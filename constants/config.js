@@ -4,6 +4,7 @@ const corsOptions = {
     "http://localhost:4173",
     process.env.CLIENT_URL,
     "https://clientchatapp-gvkp.vercel.app",
+    "https://clientchatapp-gvkp-1tr3ta411-amanrawat9711s-projects.vercel.app",
   ].filter(Boolean),
   methods: ["PUT", "POST", "DELETE", "GET"],
   credentials: true,
