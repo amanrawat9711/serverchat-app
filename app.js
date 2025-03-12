@@ -47,13 +47,23 @@ cloudinary.config({
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, { cors: corsOptions }); // Attach Socket.IO to the HTTP server instance
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:4173",
+      process.env.CLIENT_URL,
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+}); // Attach Socket.IO to the HTTP server instance
 
 app.set("io", io);
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors(corsOptions));
 // createUser(10)
 
 app.use(express.urlencoded({ extended: true }));
