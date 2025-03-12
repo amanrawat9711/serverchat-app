@@ -52,7 +52,9 @@ const io = new Server(server, {
     origin: [
       "http://localhost:5173",
       "http://localhost:4173",
-      process.env.CLIENT_URL,
+      process.env.CLIENT_URL ||
+        "https://clientchatapp-9pls-e1cqwq7u1-amanrawat9711s-projects.vercel.app" ||
+        "https://clientchatapp-9pls.vercel.app",
     ],
     methods: ["GET", "POST"],
     credentials: true,
@@ -116,13 +118,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on(START_TYPING, ({ members, chatId }) => {
-
     const membersSockets = getSockets(members);
     socket.to(membersSockets).emit(START_TYPING, { chatId });
   });
 
   socket.on(STOP_TYPING, ({ members, chatId }) => {
-
     const membersSockets = getSockets(members);
     socket.to(membersSockets).emit(STOP_TYPING, { chatId });
   });
@@ -144,7 +144,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     userSocketIds.delete(user._id.toString());
     onlineUsers.delete(user._id.toString());
-    socket.broadcast.emit(ONLINE_USERS,Array.from(onlineUsers))
+    socket.broadcast.emit(ONLINE_USERS, Array.from(onlineUsers));
   });
 });
 app.use(errorMiddleware);
